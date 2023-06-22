@@ -10,14 +10,25 @@ class PostsController extends Controller
 {
     public function index($id)
     {
+        // $friendships = Friendship::with('user', 'friendUser')
+        // ->where('user_id', '=', $id)
+        // ->where('status', '=', "Diterima")
+        // ->get();
+
+        
+
         $friendships = Friendship::with('user', 'friendUser')
-        ->where('user_id', '=', $id)
-        ->where('status', '=', "Diterima")
+        ->where(function ($query) use ($id) {
+            $query->where('user_id', $id)
+                ->orWhere('friend_user_id', $id);
+        })
+        ->where('status', 'Diterima')
         ->get();
 
         $friendUserIds = [$id];
 
         foreach ($friendships as $friendship) {
+            $friendUserIds[] = $friendship->user_id;
             $friendUserIds[] = $friendship->friend_user_id;
         }
 

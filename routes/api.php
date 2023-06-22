@@ -42,7 +42,12 @@ Route::post("like", "LikesController@store");
 Route::put("like/{id}", "LikesController@update");
 Route::delete("like/{id}", "LikesController@destroy");
 
+Route::get("friendships/{id}", "FriendshipsController@friendUsers");
+Route::get("friendships/me/{id}", "FriendshipsController@myFriends");
 Route::post("friendship", "FriendshipsController@store");
 Route::put("friendship/{id}", "FriendshipsController@update");
+
+Route::get("majors", "MajorsController@index");
+Route::get("statuses", "StatusesController@index");
 
 Route::middleware('auth:sanctum')->post('token', 'AuthController@generateToken');

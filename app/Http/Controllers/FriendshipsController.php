@@ -7,6 +7,40 @@ use App\Models\Friendship;
 
 class FriendshipsController extends Controller
 {
+    public function friendUsers($id)
+    {
+        // $friendships = Friendship::with('user', 'friendUser')
+        // ->where('user_id', '=', $id)
+        // ->where('status', '=', "Diterima")
+        // ->get();
+
+        $friendships = Friendship::with('user', 'friendUser')
+        ->where(function ($query) use ($id) {
+            $query->where('user_id', $id)
+                ->orWhere('friend_user_id', $id);
+        })
+        ->where('status', 'Diterima')
+        ->get();
+
+        return response()->json(
+            $friendships,
+            200
+        );
+    }
+
+    public function myFriends($id)
+    {
+        $friendships = Friendship::with('user', 'friendUser')
+        ->where('user_id', '=', $id)
+        ->where('status', '=', "Diterima")
+        ->get();
+
+        return response()->json(
+            $friendships,
+            200
+        );
+    }
+
     public function store(Request $request)
     {
         $friendship = new Friendship();

@@ -66,20 +66,21 @@ class AuthController extends Controller
         $user->email = $body->email;
         $user->password = bcrypt($body->password);
         $user->gender = $body->gender;
-        $user->avatar = "default_avatar.png";
+        $user->major_id = $body->major_id;
+        $user->status_id = $body->status_id;
         $user->role_id = 2;
 
 
         if ($user->save()) {
             $response = ([
-                "success" => "User Added Successfully.",
+                "success" => "Hore, kamu berhasil daftar",
                 "user" => $user,
-                'token' => $user->createToken($user->username . ' Access Token')->plainTextToken
+                // 'token' => $user->createToken($user->username . ' Access Token')->plainTextToken
             ]);
             return response($response, 201);
         }
 
-        return response(["error" => "Failed to create user. Please try again."], 203);
+        return response(["error" => "Gagal registrasi, yuk ulangi"], 203);
 
     }
 }
