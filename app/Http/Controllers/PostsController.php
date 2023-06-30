@@ -9,13 +9,7 @@ use App\Models\Friendship;
 class PostsController extends Controller
 {
     public function index($id)
-    {
-        // $friendships = Friendship::with('user', 'friendUser')
-        // ->where('user_id', '=', $id)
-        // ->where('status', '=', "Diterima")
-        // ->get();
-
-        
+    {   
 
         $friendships = Friendship::with('user', 'friendUser')
         ->where(function ($query) use ($id) {

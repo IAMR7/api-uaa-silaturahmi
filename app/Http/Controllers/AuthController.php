@@ -68,6 +68,7 @@ class AuthController extends Controller
         $user->gender = $body->gender;
         $user->major_id = $body->major_id;
         $user->status_id = $body->status_id;
+        $user->year_generation = $body->year_generation;
         $user->role_id = 2;
 
 

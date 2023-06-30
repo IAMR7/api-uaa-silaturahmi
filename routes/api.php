@@ -18,13 +18,23 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+Route::get("user/search", "UsersController@search");
+
 Route::get("/admin/users", "UsersController@index");
 
 Route::post('login', 'AuthController@login');
 Route::post("register", "AuthController@register");
 
 Route::get("user/{id}", "UsersController@detail");
-Route::put("profile/{id}", "UsersController@update");
+
+
+
+Route::put("profile/edit/{id}", "UsersController@update");
+
+
+
+
+
 Route::put("profile/password/{id}", "UsersController@updatePassword");
 
 Route::get("posts/all/{id}", "PostsController@index");
@@ -43,7 +53,8 @@ Route::put("like/{id}", "LikesController@update");
 Route::delete("like/{id}", "LikesController@destroy");
 
 Route::get("friendships/{id}", "FriendshipsController@friendUsers");
-Route::get("friendships/me/{id}", "FriendshipsController@myFriends");
+Route::get("friendships/pending/{id}", "FriendshipsController@accFriend");
+// Route::get("friendships/me/{id}", "FriendshipsController@myFriends");
 Route::post("friendship", "FriendshipsController@store");
 Route::put("friendship/{id}", "FriendshipsController@update");
 

@@ -28,11 +28,24 @@ class FriendshipsController extends Controller
         );
     }
 
-    public function myFriends($id)
+    // public function myFriends($id)
+    // {
+    //     $friendships = Friendship::with('user', 'friendUser')
+    //     ->where('user_id', '=', $id)
+    //     ->where('status', '=', "Diterima")
+    //     ->get();
+
+    //     return response()->json(
+    //         $friendships,
+    //         200
+    //     );
+    // }
+
+    public function accFriend($id)
     {
         $friendships = Friendship::with('user', 'friendUser')
-        ->where('user_id', '=', $id)
-        ->where('status', '=', "Diterima")
+        ->where('friend_user_id', '=', $id)
+        ->where('status', '=', "Menunggu Konfirmasi")
         ->get();
 
         return response()->json(

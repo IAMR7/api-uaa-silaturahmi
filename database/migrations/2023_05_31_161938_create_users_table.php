@@ -33,6 +33,7 @@ return new class extends Migration
             $table->year('year_generation')->nullable();
 
             $table->string('avatar')->nullable();
+            $table->string('cover')->nullable();
             
             $table->unsignedBigInteger('role_id')->default(2);
             $table->foreign('role_id')->references('id')->on('roles');

@@ -4,20 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Validator;
 
 class UsersController extends Controller
 {
-    public function detail($id)
-    {
-        $user = User::with('role', 'major', 'status')->find($id);
-        return response()->json(
-            [
-                'user' => $user
-            ]
-        );
-    }
-
     public function update(Request $request, $id)
     {
         $rules = [
@@ -49,61 +38,72 @@ class UsersController extends Controller
         $user->gender = $request->gender;
         $user->major_id = $request->major_id;
         $user->status_id = $request->status_id;
-        $user->avatar = $request->avatar;
-        $user->created_at = now();
         $user->updated_at = now();
 
         $user->save();
 
-        if ($user->save()) {
-            return response()->json(
-                [
-                    'message' => 'Profil berhasil diedit',
-                    'user' => $user,
-                ],
-                201
-            );
-        }
+        return response()->json(
+            [
+                'message' => 'Yeay! profil berhasil diedit',
+                'user' => $user,
+            ],
+            201
+        );
 
-        return response(["error" => "Update profil gagal, coba lagi"], 203);
+        // if (!isset($request->avatar)) {
 
-    }
+        //     Storage::delete('uploads/avatars/' . $user->avatar);
+        //     $user->avatar = NULL;
+      
+        //   } else {
+      
+        //     if ($request->hasFile('avatar')) {
+      
+        //       if (isset($user->avatar)) {
+        //         Storage::delete('uploads/avatars/' . $user->avatar);
+        //       }
+      
+        //       $avatar = $request->file('avatar');
+        //       $avatarName = time() . '_' . $avatar->getClientOriginalName();
+        //       $photo = $avatar->storeAs('uploads/avatars', $avatarName);
+        //       $user->avatar = $avatarName;
+      
+        //     }
+      
+        // }
 
-    public function updatePassword(Request $request, $id)
-    {
-        $rules = [
-            'password' => 'required|regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/',
-        ];
+        // if (!isset($request->cover)) {
 
-        $messages = [
-            'required' => ':attribute harus diisi',
-            'regex' => ':attribute harus terdiri dari huruf dan angka',
-        ];
+        //     Storage::delete('uploads/covers/' . $user->cover);
+        //     $user->cover = NULL;
+           
+      
+        //   } else {
+      
+        //     if ($request->hasFile('cover')) {
+      
+        //       if (isset($user->cover)) {
+        //         Storage::delete('uploads/covers/' . $user->cover);
+        //       }
+      
+        //       $cover = $request->file('cover');
+        //       $coverName = time() . '_' . $cover->getClientOriginalName();
+        //       $photo = $cover->storeAs('uploads/covers', $coverName);
+        //       $user->cover = $coverName;
+      
+        //     }
+      
+        // }
 
-        $isValid = Validator::make($request->json()->all(), $rules, $messages);
-        if ($isValid->fails()) {
-            return response(['error' => ($isValid->errors()->getMessageBag())], 203);
-        }
+        // $user->save();
 
-        $user = User::find($id);
-
-        $user->password = bcrypt($request->password);
-        $user->created_at = now();
-        $user->updated_at = now();
-
-        $user->save();
-
-        if ($user->save()) {
-            return response()->json(
-                [
-                    'message' => 'Yeay! password berhasil diedit',
-                    'user' => $user,
-                ],
-                201
-            );
-        }
-
-        return response(["error" => "Update password gagal, coba lagi"], 203);
+        // return response()->json(
+        //     [
+        //         'message' => 'Yeay! profil berhasil diedit',
+        //         'user' => $user,
+        //     ],
+        //     201
+        // );
 
     }
 }

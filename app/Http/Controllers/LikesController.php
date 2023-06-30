@@ -20,7 +20,7 @@ class LikesController extends Controller
 
         return response()->json(
             [
-                'message' => 'Yeay! like berhasil dibuat',
+                'message' => 'Postingan berhasil disukai',
                 'like' => $like,
             ],
             201
@@ -53,7 +53,7 @@ class LikesController extends Controller
         $like->delete();
         return response()->json(
             [
-                'message' => 'Yeay! komentar berhasil dihapus',
+                'message' => 'Like berhasil dibatalkan',
                 'like' => $like,
             ],
             200
