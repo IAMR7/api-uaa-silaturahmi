@@ -29,7 +29,7 @@ Route::get("user/{id}", "UsersController@detail");
 
 
 
-Route::put("profile/edit/{id}", "UsersController@update");
+Route::post("profile/edit/{id}", "UsersController@update");
 
 
 
