@@ -95,4 +95,18 @@ class FriendshipsController extends Controller
             201
         );
     }
+
+    public function destroy($id)
+    {
+        $friendship = Friendship::with('user', 'friendUser')->find($id);
+        $friendship->delete();
+
+         return response()->json(
+            [
+                'message' => 'Yeay! Friendship berhasil dihapus',
+                'friendship' => $friendship,
+            ],
+            200
+        );
+    }
 }

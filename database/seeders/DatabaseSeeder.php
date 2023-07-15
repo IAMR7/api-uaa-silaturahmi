@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             StatusSeeder::class,
             MajorSeeder::class,
-            UserSeeder::class,
-            FriendshipSeeder::class,
-            PostSeeder::class,
-            CommentSeeder::class,
-            LikeSeeder::class,
+            // UserSeeder::class,
+            // FriendshipSeeder::class,
+            // PostSeeder::class,
+            // CommentSeeder::class,
+            // LikeSeeder::class,
         ]);
     }
 }

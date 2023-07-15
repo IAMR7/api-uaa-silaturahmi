@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\Post;
 
 class PostSeeder extends Seeder
 {
@@ -13,14 +14,6 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('posts')->insert([
-            [
-                'user_id' => 3,
-                'content' => "Ini post nya Akbar!",
-                'image' => null,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+        Post::factory()->count(50)->create();
     }
 }

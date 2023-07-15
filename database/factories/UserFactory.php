@@ -19,10 +19,18 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'username' => fake()->username(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'password' => bcrypt("password123"),
+            'phone' => fake()->phoneNumber(),
+            'bio' => "Lorem ipsum dolor sit amet",
+            'gender' => "Laki-laki",
+            'major_id' => fake()->numberBetween(1, 18),
+            'status_id' => fake()->numberBetween(1, 5),
+            'year_generation' => fake()->year('-5 years'),
+            'role_id' => 2,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 

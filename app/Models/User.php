@@ -55,4 +55,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Status::class);
     }
+
+    public function requestVerified()
+    {
+        return $this->hasOne(RequestVerified::class);
+    }
+
+    public function ticket()
+    {
+        return $this->hasMany(Ticket::class);
+    }
 }
