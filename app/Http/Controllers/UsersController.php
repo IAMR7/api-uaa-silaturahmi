@@ -23,6 +23,24 @@ class UsersController extends Controller
     return response()->json($users, 200);
   }
 
+  public function handleVerified(Request $request, $id)
+  {
+    $user = User::with('role', 'major', 'status')->find($id);
+
+    $user->verified = $request->verified;
+
+    $user->save();
+    $user = User::with('role', 'major', 'status')->find($id);
+
+    return response()->json(
+      [
+        "message" => "Berhasil handle Verified",
+        "user" => $user
+      ],
+      201
+    );
+  }
+
   public function getUser($id)
   {
       $user = User::with('role', 'major', 'status')->find($id);
@@ -151,5 +169,41 @@ class UsersController extends Controller
             201
         );
 
+    }
+
+    public function addAdmin(Request $request)
+    {
+      $user = new User();
+
+      $user->name = $request->name;
+      $user->username = $request->username;
+      $user->email = $request->email;
+      $user->password = bcrypt("admin123");
+      $user->gender = $request->gender;
+      $user->role_id = 1;
+      $user->verified = 1;
+
+      $user->save();
+
+      return response()->json(
+        [
+          "message" => "Berhasil tambah Admin",
+          "user" => $user
+        ]
+      );
+    }
+
+    public function destroy($id)
+    {
+      $user = User::find($id);
+
+      $user->delete();
+
+      return response()->json(
+        [
+          "message" => "Berhasil hapus user",
+          "user" => $user
+        ]
+      );
     }
 }
